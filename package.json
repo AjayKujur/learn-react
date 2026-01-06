@@ -1,0 +1,25 @@
+{
+  "name": "html5",
+  "version": "1.0.0",
+  "description": "this is react tutorial",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AjayKujur/learn-react.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "AjayKujur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AjayKujur/learn-react/issues"
+  },
+  "homepage": "https://github.com/AjayKujur/learn-react#readme",
+  "devDependencies": {
+    "parcel": "^2.16.3"
+  }
+}
