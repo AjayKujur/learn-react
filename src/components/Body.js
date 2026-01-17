@@ -1,8 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import {Button, Navbar, Container, Nav, Form, FormControl, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ResCard from "./ResCard.js";
 
 const restaurantList = {
   data: [
@@ -32,9 +30,9 @@ const restaurantList = {
       delivery_time_minutes: 45,
       address: "88 Curry Lane, San Jose, CA",
       tags: ["spicy", "curry", "vegan options"],
-      image_url: "https://images.unsplash.com/photo-1600628422019-8a62a52c6d70",
+      image_url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1",
       created_at: "2025-09-05T09:11:42Z",
-      image_id: "photo-1600628422019-8a62a52c6d70"
+      image_id: "photo-1528605248644-14dd04022da1"
     },
     {
       id: "rest_003",
@@ -84,39 +82,6 @@ const restaurantList = {
   ]
 };
 
-    
-
-const Header = () => {
-    return (
-        <div className="header">
-            <div className="logo-container">
-                <img className="header-logo" src="https://cdn-icons-png.flaticon.com/512/1183/1183694.png" alt="React Logo" />
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                    <li>Cart</li>
-                    <li>Login</li>
-                </ul>
-            </div>
-        </div>
-    )
-};
-
-const ResCard = ({restaurantData}) => {
-    return (
-        <div className="res-card">
-            <img className="res-logo" src={restaurantData.image_url} alt="Restaurant Logo" />
-            <h3>{restaurantData.name}</h3>
-            <h4>{restaurantData.cuisine}</h4>
-            <h4>{restaurantData.rating}</h4>
-            <h4>{restaurantData.delivery_time_minutes} minutes to delivery</h4>
-        </div>
-    )
-};
-
 const Body = () => {
     return (
         <div className="body">
@@ -134,24 +99,4 @@ const Body = () => {
     )
 };
 
-const Footer = () => {
-    return (
-        <div className="footer">
-            <h4>© 2024 Test FoodieApp. All rights reserved.</h4>
-        </div>
-    )
-}
-
-const AppLayout = () => {
-    return (
-        <div className="app">
-            <h1>This is JSX Header Component</h1>
-            <Header />
-            <Body />
-            <Footer />
-        </div>
-    )
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+export default Body;
