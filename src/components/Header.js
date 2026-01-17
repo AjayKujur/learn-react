@@ -1,8 +1,10 @@
+import {HEADER_LOGO_URL} from "../utils/constants.js";
+
 const Header = () => {
     return (
         <div className="header">
             <div className="logo-container">
-                <img className="header-logo" src="https://cdn-icons-png.flaticon.com/512/1183/1183694.png" alt="React Logo" />
+                <img className="header-logo" src={HEADER_LOGO_URL} alt="React Logo" />
             </div>
             <div className="nav-items">
                 <ul>
