@@ -1,5 +1,4 @@
-const restaurantList = {
-  data: [
+let restaurantList = [
     {
       id: "rest_001",
       name: "The Golden Spoon",
@@ -76,6 +75,5 @@ const restaurantList = {
       image_id: "photo-1555396273-367ea4eb4db5"
     }
   ]
-};
 
 export default restaurantList;
