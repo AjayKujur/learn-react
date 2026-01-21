@@ -3,12 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ResCard from "./ResCard.js";
 import restaurantList from "../utils/mockData.js";
 import { useState, useEffect } from 'react';
+import { MENU_API_URL, IMAGE_CDN_URL } from '../utils/constants.js';
 
 
 const Body = () => {
 
-    const [listOfRestaurants, setListOfRestaurants] = useState(restaurantList);
-    const [filteredRestaurants, setFilteredRestaurants] = useState(restaurantList);
+    const [listOfRestaurants, setListOfRestaurants] = useState([]);
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
     const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
@@ -16,16 +17,12 @@ const Body = () => {
     }, []);
 
     const remoteData = async () => {
-        const data = await fetch(
-            "https://namastedev.com/api/v1/listRestaurants"
-        );
+        const data = await fetch(MENU_API_URL);
         const json = await data.json();
-        //console.log("remoteData called");
-        //console.log(json);
-        //console.log("remoteData received");
-        //console.log(json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
-        //setListOfRestaurants(json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
-        //console.log(listOfRestaurants);
+        const restaurants = json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+        setListOfRestaurants(restaurants);
+        setFilteredRestaurants(restaurants);
+
     };
 
     return (
@@ -38,8 +35,7 @@ const Body = () => {
                 <Button className="search-btn" 
                 onClick={ () => {
                     const searchFilteredList = 
-                    listOfRestaurants.filter((res) => res.name.toLowerCase().includes(searchText.toLocaleLowerCase()));
-                    //console.log(searchFilteredList);
+                    listOfRestaurants.filter((res) => res.info.name.toLowerCase().includes(searchText.toLocaleLowerCase()));
                     setFilteredRestaurants(searchFilteredList);
                 }}
                 variant="outline-success">Search</Button>
@@ -56,7 +52,7 @@ const Body = () => {
             <div className="res-container">
                 {
                     filteredRestaurants.map((restaurant) => 
-                        <ResCard key={restaurant.id} restaurantData={restaurant} />)  
+                        <ResCard key={restaurant.info.id} restaurantData={restaurant} />)  
                 }
             </div>
         </div>
