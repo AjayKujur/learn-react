@@ -1,10 +1,9 @@
-import {Button, Navbar, Container, Nav, Form, FormControl, Card} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ResCard from "./ResCard.js";
-import restaurantList from "../utils/mockData.js";
 import { useState, useEffect } from 'react';
-import { MENU_API_URL, IMAGE_CDN_URL } from '../utils/constants.js';
-
+import { RESTAURANT_LIST_URL } from '../utils/constants.js';
+import { Link } from 'react-router-dom';
 
 const Body = () => {
 
@@ -17,9 +16,9 @@ const Body = () => {
     }, []);
 
     const remoteData = async () => {
-        const data = await fetch(MENU_API_URL);
+        const data = await fetch(RESTAURANT_LIST_URL);
         const json = await data.json();
-        const restaurants = json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+        const restaurants = json?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
         setListOfRestaurants(restaurants);
         setFilteredRestaurants(restaurants);
 
@@ -42,7 +41,7 @@ const Body = () => {
                 <Button variant="outline-primary" 
                     onClick={
                         ()=> { 
-                            const filteredList = listOfRestaurants.filter(res => res.rating > 4.5);
+                            const filteredList = listOfRestaurants.filter(res => res.info.avgRating > 4.5);
                             setFilteredRestaurants(filteredList); 
                         }}>
                             Sort
@@ -51,9 +50,13 @@ const Body = () => {
 
             <div className="res-container">
                 {
-                    filteredRestaurants.map((restaurant) => 
-                        <ResCard key={restaurant.info.id} restaurantData={restaurant} />)  
-                }
+                    filteredRestaurants.map((restaurant) => (
+                    <Link 
+                    to = {"/restaurants/" + restaurant.info.id} key={restaurant.info.id} 
+                    style={{ textDecoration: "none", color: "inherit"}} >
+                        <ResCard key={restaurant.info.id} restaurantData={restaurant} />
+                    </Link>
+                ))}
             </div>
         </div>
     )
