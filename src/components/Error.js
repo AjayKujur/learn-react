@@ -5,7 +5,6 @@ const Error = () => {
     return (
         <div>
             <h1><b>404 - Page Not Found</b></h1>
-            {console.log(error)}
         </div>
     );
 };

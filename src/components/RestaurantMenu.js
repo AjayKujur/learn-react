@@ -2,27 +2,33 @@ import { useState, useEffect, use } from "react";
 import { MENU_URL } from "../utils/constants.js";
 import Error from "./Error.js";
 import { useParams } from "react-router";
+import useResaurantMenu from "../utils/useRestaurantMenu.js";
 
 const RestaurantMenu = () => {
 
-    const [resInfo, setResInfo] = useState(""); 
-    const [menuInfo, setmenuInfo] = useState(null);
+    // const [resInfo, setResInfo] = useState(""); 
+    // const [menuInfo, setmenuInfo] = useState(null);
 
     const { resId } = useParams();
 
-    useEffect( () => {
-        fetchMenu();
-    }, []);
+    var restaurantMenuFromCustomHook = useResaurantMenu(resId);
+    
+    const resInfo = restaurantMenuFromCustomHook?.data?.cards[2]?.card?.card?.info;
+    const menuInfo = restaurantMenuFromCustomHook?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
 
-    const fetchMenu = async () => {
-        const data = await fetch(MENU_URL + resId);
-        const json = await data.json();
-        const restaurantInfo = json?.data?.cards[2]?.card?.card?.info;
-        setResInfo(restaurantInfo);
-        const menuItems = json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
-        setmenuInfo(menuItems);
+    // useEffect( () => {
+    //     fetchMenu();
+    // }, []);
 
-    }
+    // const fetchMenu = async () => {
+    //     const data = await fetch(MENU_URL + resId);
+    //     const json = await data.json();
+    //     const restaurantInfo = json?.data?.cards[2]?.card?.card?.info;
+    //     setResInfo(restaurantInfo);
+    //     const menuItems = json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
+    //     setmenuInfo(menuItems);
+
+    // }
     return menuInfo == null ? <Error /> : (
         <div className="menu">
             <h2>{resInfo.name}</h2>
