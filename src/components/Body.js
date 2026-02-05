@@ -5,12 +5,16 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useRestaurantList from '../utils/useRestaurantList.js';
 import Shimmer from './Shimmer.js';
+import useOnlineStatus from '../utils/useOnlineStatus.js';
 
 const Body = () => {
 
-     const [listOfRestaurants, setListOfRestaurants] = useState([]);
-     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-     const [searchText, setSearchText] = useState("");
+    const [listOfRestaurants, setListOfRestaurants] = useState([]);
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+    const [searchText, setSearchText] = useState("");
+
+    const onlineStatus = useOnlineStatus();
+
 
     const resInfo = useRestaurantList();
 
@@ -21,6 +25,7 @@ const Body = () => {
             setFilteredRestaurants(restaurants);
         }
     }, [resInfo]);
+    
 
     // setFilteredRestaurants(Restaurants);
     // setListOfRestaurants(Restaurants);
@@ -40,7 +45,11 @@ const Body = () => {
 
     // };
 
-    if(resInfo == null) {
+    if(onlineStatus === false) {
+        return <h1>🔴 You are offline! Please check your internet connection.</h1>
+    } else {
+
+        if(resInfo == null) {
         return <Shimmer />;
     } else {
         return (
@@ -80,6 +89,11 @@ const Body = () => {
         </div>
     )
     }
+
+    }
+
+
+    
 
     
 };
