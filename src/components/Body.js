@@ -1,5 +1,4 @@
-import {Button} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// removed react-bootstrap and bootstrap imports
 import ResCard from "./ResCard.js";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -54,29 +53,30 @@ const Body = () => {
     } else {
         return (
         <div className="body">
-            <div className="search">
-                <input type="text" className="search-input" 
+            <div className="search m-4 p-4 border">
+                <input type="text" className="border border-solid border-black" 
                 value={searchText} 
                 onChange={(e) => {setSearchText(e.target.value)}}
                 placeholder="Search for restaurants or cuisines" />
-                <Button className="search-btn" 
+                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 onClick={ () => {
                     const searchFilteredList = 
                     listOfRestaurants.filter((res) => res.info.name.toLowerCase().includes(searchText.toLocaleLowerCase()));
                     setFilteredRestaurants(searchFilteredList);
                 }}
-                variant="outline-success">Search</Button>
-                <Button variant="outline-primary" 
-                    onClick={
-                        ()=> { 
-                            const filteredList = listOfRestaurants.filter(res => res.info.avgRating > 4.5);
-                            setFilteredRestaurants(filteredList); 
-                        }}>
-                            Sort
-                </Button>
+                >Search</button>
+                <button
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    onClick={() => {
+                        const filteredList = listOfRestaurants.filter(res => res.info.avgRating > 4.5);
+                        setFilteredRestaurants(filteredList);
+                    }}
+                >
+                    Sort
+                </button>
             </div>
 
-            <div className="res-container">
+            <div className="res-container flex flex-wrap">
                 {
                     filteredRestaurants && filteredRestaurants.map((restaurant) => (
                     <Link 
